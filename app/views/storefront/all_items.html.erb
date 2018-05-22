@@ -1,48 +1,64 @@
-<h1>Welcome To Shopper Spree</h1>
-<p>Where shopping feels like a spree!</p>
 
 <h4>Check out some of our products!</h4>
 
 <div class="row">
-	<% @products.each do |product| %>
-			<div class="col-md-4">
-				<div class="well">
-					<p><%= image_tag product.image.front %></p>
-					<p><%= product.name %></p>
-					<p><%= number_to_currency product.price %></p>
-					<p><a href="#" data-toggle="modal" data-target="#myModal_<%= product.id %>"><span class="glyphicon glyphicon-plus"></span>More info</a></p>
-				</div>
-			</div>
+  <% @products.each do |product| %>
+    <div class="col-md-4">
+      <div class="well well-storefront">
+      	<center>
+	        <div class="pic-space" >
+	          <p><%= image_tag product.image.front %></p>
+	       	</div>
+        <h3 class="modal-name"><%= link_to product.name, product %></h3>
+        <p><%= number_to_currency product.price %></p>
+        <p>
+          <a href="#" data-toggle="modal" data-target="#myModal_<%= product.id %>">
+            <span class="glyphicon glyphicon-plus"></span> Quick Info
+          </a>
+        </p>
+      </center>
+      </div>
+    </div>
+
+    <!-- Modal Info Here -->
 
 
-
-
-
-	<!-- Modal Box  -->
-
+    	<!-- Product Modal -->
 		<div class="modal fade" id="myModal_<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel"><%= product.name %></h4>
-		      </div>
-		      <div class="modal-body">
-		      	<p><%= image_tag product.image.show %></p>
-		      	<p>Rating: <%= product.rating %> out of 5</p>
-		        <p><%= product.description %></p>
-		        <p><%= number_to_currency product.price %></p>
-		        <p>Made By: <%= product.brand %></p>
-		        <p>Quantity in Stock: <%= product.quantity %></p>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-	<% end %>
-</div>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          </div>
+          <div class="modal-body">
+            <center>
+              <p><%= image_tag product.image.front %></p>
 
-<!-- End of Modal -->
+            <h3 class="modal-name"><%= link_to product.name, product %></h3>
+            <p><%= number_to_currency product.price %></p>
+            <p>Made by: <%= product.brand %></p>
+            <p>Current Stock: <%= product.quantity %></p>
+            <p>
+              <% product.rating.times do %>
+              <span class="glyphicon glyphicon-star"></span>
+            <% end %>
+            <% (5 -product.rating).times do %>
+              <span class="glyphicon glyphicon-star-empty"></span>
+            <% end %>
+            </p>
+          </center>
+          </div>
+          <div class="modal-footer">
+            <div class="col-md-6">
+            ...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- End modal info -->
+
+  <% end %>
+</div>
