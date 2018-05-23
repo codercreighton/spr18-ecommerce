@@ -1,0 +1,9 @@
+<h1>Thank you for shopping with us <%= current_user.email %>!</h1>
+<p>You should expect the following items to arrive soon:</p>
+
+<% @order.order_items.each do |id, quantity|
+ %>
+ 	<p>Product Name: <%= Product.find(id).name %>, quantity: <%= quantity %></p>
+ <% end %>
+
+ <p>Order Total: <%= number_to_currency @order.grand_total %></p>

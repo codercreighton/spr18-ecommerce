@@ -1,0 +1,24 @@
+<h2>Here's what you have in your cart so far: </h2>
+
+
+<% @line_items.each do |line_item| %>
+	<div class="well">
+		<div class="row">
+
+					<h3><%= line_item.product.name %></h3>
+					<p><%= number_to_currency line_item.product.price %></p>
+					<p>Quantity: <%= line_item.quantity %></p>
+					<p>Subtotal: <%= number_to_currency line_item.line_item_total %></p>
+		
+					<%= form_tag edit_line_item_path do %>
+						<%= hidden_field_tag :id, line_item.id %>
+						<%= number_field_tag :quantity, line_item.quantity, max: line_item.product.quantity %>
+						<%= submit_tag "Edit #{line_item.product.name} Quantity", class: 'btn btn-primary' %>
+					<% end %>	
+					<%= link_to "Delete Cart Item", delete_line_item_path(id: line_item.id), class: 'btn btn-danger' %>	
+	
+			</div>
+	</div>
+<% end %>
+
+<p><%= link_to "Proceed to Checkout", checkout_path, class: "btn btn-success" %></p>
