@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   get 'delete_line_item' => 'cart#delete_line_item'
 
-
+  post 'order_complete' => 'cart#order_complete'
 
   devise_for :users
 	root 'storefront#all_items'
